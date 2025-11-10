@@ -8,8 +8,8 @@ return {
       options = {
         theme = 'tomorrow_night', -- 👈 any built-in theme name here
         icons_enabled = true,
-        section_separators = { left = '', right = '' },
-        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
+        component_separators = { left = '', right = '' },
       },
       sections = {
         lualine_a = { 'mode' },
