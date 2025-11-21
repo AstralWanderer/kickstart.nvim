@@ -178,6 +178,18 @@ vim.keymap.set('n', '<CR>', 'm`o<Esc>``')
 vim.keymap.set('n', '<S-CR>', 'm`O<Esc>``')
 -- Add empty line below cursor in insert mode
 vim.keymap.set('i', '<S-CR>', '<C-o>o<Esc>kA', { noremap = true, silent = true })
+-- Jump to next TODO comment
+vim.keymap.set('n', ']t', function()
+  require('todo-comments').jump_next()
+end, { desc = 'Next todo comment' })
+-- Jump to previous TODO comment
+vim.keymap.set('n', '[t', function()
+  require('todo-comments').jump_prev()
+end, { desc = 'Previous todo comment' })
+-- You can also specify a list of valid jump keywords
+vim.keymap.set('n', ']t', function()
+  require('todo-comments').jump_next { keywords = { 'ERROR', 'WARNING' } }
+end, { desc = 'Next error/warning todo comment' })
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
