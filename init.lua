@@ -680,6 +680,7 @@ require('lazy').setup({
         },
       }
 
+      vim.diagnostic.hide()
       -- for duplicate errors in tiny-inline-diagnostic
       -- .config/nvim/lua/configs/lspconfig.lua
       vim.diagnostic.config {
@@ -845,12 +846,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
         opts = {},
       },
@@ -876,6 +877,7 @@ require('lazy').setup({
         -- All presets have the following mappings:
         -- <tab>/<s-tab>: move to right/left of your snippet expansion
         -- <c-space>: Open menu or open docs if already open
+        -- <c-f>/<c-b>: Scroll docs down/up
         -- <c-n>/<c-p> or <up>/<down>: Select next/previous item
         -- <c-e>: Hide menu
         -- <c-k>: Toggle signature help
@@ -917,9 +919,64 @@ require('lazy').setup({
       -- See :h blink-cmp-config-fuzzy for more information
       fuzzy = { implementation = 'lua' },
 
-      -- Shows a signature help window while you type arguments for a function
-      signature = { enabled = true },
-      { window = { show_documentation = true } },
+      -- Experimental signature help support
+      signature = {
+        enabled = true,
+        trigger = {
+          -- Show the signature help automatically
+          enabled = true,
+          -- Show the signature help window after typing any of alphanumerics, `-` or `_`
+          show_on_keyword = false,
+          blocked_trigger_characters = {},
+          blocked_retrigger_characters = {},
+          -- Show the signature help window after typing a trigger character
+          show_on_trigger_character = true,
+          -- Show the signature help window when entering insert mode
+          show_on_insert = true,
+          -- Show the signature help window when the cursor comes after a trigger character when entering insert mode
+          show_on_insert_on_trigger_character = true,
+        },
+        window = {
+          min_width = 1,
+          max_width = 100,
+          max_height = 10,
+          border = nil, -- Defaults to `vim.o.winborder` on nvim 0.11+ or 'padded' when not defined/<=0.10
+          winblend = 0,
+          winhighlight = 'Normal:BlinkCmpSignatureHelp,FloatBorder:BlinkCmpSignatureHelpBorder',
+          scrollbar = true, -- Note that the gutter will be disabled when border ~= 'none'
+          -- Which directions to show the window,
+          -- falling back to the next direction when there's not enough space,
+          -- or another window is in the way
+          direction_priority = { 'n', 's' },
+          -- Can accept a function if you need more control
+          -- direction_priority = function()
+          --   if condition then return { 'n', 's' } end
+          --   return { 's', 'n' }
+          -- end,
+
+          -- Disable if you run into performance issues
+          treesitter_highlighting = true,
+          show_documentation = true,
+        },
+        cs = {
+          window = {
+            max_width = 200,
+            max_height = 300,
+          },
+        },
+        razor = {
+          window = {
+            max_width = 200,
+            max_height = 300,
+          },
+        },
+        cshtml = {
+          window = {
+            max_width = 200,
+            max_height = 300,
+          },
+        },
+      },
     },
   },
 
