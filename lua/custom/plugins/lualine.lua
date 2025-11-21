@@ -9,17 +9,25 @@ return {
         theme = 'tomorrow_night', -- 👈 any built-in theme name here
         icons_enabled = true,
         section_separators = { left = '', right = '' },
-        component_separators = { left = '', right = '' },
+        -- component_separators = { left = '', right = '' },
+        component_separators = { left = '', right = '' },
       },
       sections = {
         lualine_a = { 'mode' },
         lualine_b = { 'branch', 'diff', 'diagnostics' },
-        lualine_c = { 'filename' },
-        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_c = {
+          {
+            'filetype',
+            colored = true,
+            icon_only = true,
+          },
+          'filename',
+        },
+        lualine_x = { '' },
         lualine_y = { 'progress' },
         lualine_z = { 'location' },
       },
-      extensions = { 'neo-tree' },
+      extensions = { 'neo-tree', 'trouble' },
     }
   end,
 }
